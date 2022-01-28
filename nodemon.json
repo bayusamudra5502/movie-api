@@ -1,5 +1,5 @@
 {
   "ignore": [".git", "node_modules", "dist"],
-  "watch": ["./prisma", "./src"],
-  "ext": ["prisma", "ts"]
+  "watch": ["./prisma", "./src", "./public"],
+  "ext": "ts,js,prisma,css,ejs"
 }

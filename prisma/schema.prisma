@@ -9,3 +9,45 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  userId    Int      @id @default(autoincrement()) @map("id")
+  timestamp DateTime @default(now())
+  email     String   @unique @db.VarChar(200)
+  role      Role     @relation(fields: [roleName], references: [roleName])
+  roleName  String
+  movie     Movie?
+  favorite  Favorite[]
+}
+
+model Role {
+  roleName  String   @id
+  canEdit   Boolean  @default(false)
+  canCreate Boolean  @default(false)
+  canDelete Boolean  @default(false)
+  User      User[]
+}
+
+model Movie {
+  movieId   Int       @id @default(autoincrement())
+  timestamp DateTime  @default(now())
+  author    User      @relation(fields: [authorId], references: [userId])
+  authorId  Int
+  category  Category @relation(fields: [categoryId], references: [categoryId])
+  categoryId Int
+  favorite  Favorite[]
+}
+
+model Category {
+  categoryId    Int   @id @default(autoincrement())
+  categoryName  String
+  movie         Movie[]
+}
+
+model Favorite {
+  favoriteId   Int @id @default(autoincrement())
+  user         User @relation(fields: [userId], references: [userId])
+  userId       Int
+  movie        Movie @relation(fields: [movieId], references: [movieId])
+  movieId      Int
+}
