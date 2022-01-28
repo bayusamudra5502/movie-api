@@ -1,0 +1,5 @@
+{
+  "ignore": [".git", "node_modules", "dist"],
+  "watch": ["./prisma", "./src"],
+  "ext": ["prisma", "ts"]
+}
