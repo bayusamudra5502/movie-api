@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  userId    Int      @id @default(autoincrement()) @map("id")
+  userId    String   @id @default(uuid()) @map("id")
   timestamp DateTime @default(now())
   email     String   @unique @db.VarChar(200)
   role      Role     @relation(fields: [roleName], references: [roleName])
@@ -29,17 +29,17 @@ model Role {
 }
 
 model Movie {
-  movieId   Int       @id @default(autoincrement())
-  timestamp DateTime  @default(now())
-  author    User      @relation(fields: [authorId], references: [userId])
-  authorId  Int
-  category  Category @relation(fields: [categoryId], references: [categoryId])
-  categoryId Int
-  favorite  Favorite[]
+  movieId     Int       @id @default(autoincrement())
+  timestamp   DateTime  @default(now())
+  author      User      @relation(fields: [authorId], references: [userId])
+  authorId    String
+  category    Category @relation(fields: [categoryId], references: [categoryId])
+  categoryId  String
+  favorite    Favorite[]
 }
 
 model Category {
-  categoryId    Int   @id @default(autoincrement())
+  categoryId    String   @id @default(uuid())
   categoryName  String
   movie         Movie[]
 }
@@ -47,7 +47,7 @@ model Category {
 model Favorite {
   favoriteId   Int @id @default(autoincrement())
   user         User @relation(fields: [userId], references: [userId])
-  userId       Int
+  userId       String
   movie        Movie @relation(fields: [movieId], references: [movieId])
   movieId      Int
 }
