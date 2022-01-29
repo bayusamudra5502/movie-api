@@ -11,19 +11,10 @@ model User {
   userId    String     @id @default(uuid()) @map("id")
   timestamp DateTime   @default(now())
   email     String     @unique @db.VarChar(200)
-  roleName  String
   password  String
-  role      Role       @relation(fields: [roleName], references: [roleName])
   favorite  Favorite[]
-  movie     Movie?
-}
-
-model Role {
-  roleName  String  @id
-  canEdit   Boolean @default(false)
-  canCreate Boolean @default(false)
-  canDelete Boolean @default(false)
-  User      User[]
+  movie     Movie[]
+  vote      Vote[]
 }
 
 model Movie {
@@ -31,9 +22,23 @@ model Movie {
   timestamp  DateTime   @default(now())
   authorId   String     @unique
   categoryId String
+  title      String
+  sinopsis   String
+  release    String
+  image      String
   author     User       @relation(fields: [authorId], references: [userId])
   category   Category   @relation(fields: [categoryId], references: [categoryId])
   favorite   Favorite[]
+  vote       Vote[]
+}
+
+model Vote {
+  voteId  Int @id @default(autoincrement())
+  movie   Movie @relation(fields: [movieId], references: [movieId])
+  user    User @relation(fields: [userId], references: [userId])
+  movieId Int
+  userId  String 
+  vote    Int
 }
 
 model Category {
