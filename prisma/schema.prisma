@@ -20,7 +20,7 @@ model User {
 model Movie {
   movieId    Int        @id @default(autoincrement())
   timestamp  DateTime   @default(now())
-  authorId   String     @unique
+  authorId   String     
   categoryId String
   title      String
   sinopsis   String
@@ -43,7 +43,7 @@ model Vote {
 
 model Category {
   categoryId   String  @id @default(uuid())
-  categoryName String
+  categoryName String  @unique
   movie        Movie[]
 }
 
