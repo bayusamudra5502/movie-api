@@ -12,7 +12,8 @@ services:
       - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
-      - POSTGRES_USERNAME=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=movie_api
   server:
     container_name: gdsc_movie_api
     build: .
@@ -22,8 +23,6 @@ services:
       - api_network
     depends_on:
       - postgresql
-    volumes:
-      - .:/source
     environment:
       - DATABASE_URL=postgresql://root:root@postgresql:5432/movie_api
       - PORT=8080
