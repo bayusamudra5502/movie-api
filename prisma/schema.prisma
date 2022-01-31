@@ -26,8 +26,8 @@ model Movie {
   release    String
   synopsis   String
   title      String
-  author     User       @relation(fields: [authorId], references: [userId])
-  category   Category   @relation(fields: [categoryId], references: [categoryId])
+  author     User       @relation(fields: [authorId], references: [userId], onDelete: Cascade)
+  category   Category   @relation(fields: [categoryId], references: [categoryId], onDelete: SetNull)
   favorite   Favorite[]
   vote       Vote[]
 }
@@ -37,8 +37,8 @@ model Vote {
   movieId Int
   userId  String
   vote    Int
-  movie   Movie  @relation(fields: [movieId], references: [movieId])
-  user    User   @relation(fields: [userId], references: [userId])
+  movie   Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
 
 model Category {
@@ -51,6 +51,6 @@ model Favorite {
   favoriteId Int    @id @default(autoincrement())
   userId     String
   movieId    Int
-  movie      Movie  @relation(fields: [movieId], references: [movieId])
-  user       User   @relation(fields: [userId], references: [userId])
+  movie      Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+  user       User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
