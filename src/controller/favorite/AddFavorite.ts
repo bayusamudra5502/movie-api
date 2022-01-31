@@ -49,7 +49,7 @@ export default async function AddFavorite(
       });
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

@@ -9,14 +9,14 @@ export default async function AddMovie(
   res: express.Response,
 ) {
   if (req.user) {
-    const { image, release, sinopsis, title, categoryId } = req.body;
+    const { image, release, synopsis, title, categoryId } = req.body;
 
     try {
       await prisma.movie.create({
         data: {
           image,
           release,
-          sinopsis,
+          synopsis,
           title,
           authorId: req.user.userId,
           categoryId,
@@ -38,7 +38,7 @@ export default async function AddMovie(
       });
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

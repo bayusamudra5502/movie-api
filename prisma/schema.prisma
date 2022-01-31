@@ -20,12 +20,12 @@ model User {
 model Movie {
   movieId    Int        @id @default(autoincrement())
   timestamp  DateTime   @default(now())
-  authorId   String     
+  authorId   String
   categoryId String
-  title      String
-  sinopsis   String
-  release    String
   image      String
+  release    String
+  synopsis   String
+  title      String
   author     User       @relation(fields: [authorId], references: [userId])
   category   Category   @relation(fields: [categoryId], references: [categoryId])
   favorite   Favorite[]
@@ -33,12 +33,12 @@ model Movie {
 }
 
 model Vote {
-  voteId  Int @id @default(autoincrement())
-  movie   Movie @relation(fields: [movieId], references: [movieId])
-  user    User @relation(fields: [userId], references: [userId])
+  voteId  Int    @id @default(autoincrement())
   movieId Int
-  userId  String 
+  userId  String
   vote    Int
+  movie   Movie  @relation(fields: [movieId], references: [movieId])
+  user    User   @relation(fields: [userId], references: [userId])
 }
 
 model Category {

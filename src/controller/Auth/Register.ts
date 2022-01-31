@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 
 export interface IRegister {
   email: string;
-  roleName: string;
   password: string;
   verifyPassword: string;
 }
@@ -27,7 +26,7 @@ export default async function Register(
   res: express.Response,
 ) {
   if (req.user) {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'User was authenticated',
       data: null,
@@ -81,11 +80,19 @@ export default async function Register(
       message: 'User added',
       data: null,
     });
-  } catch (err) {
-    res.status(500).json({
-      status: 'error',
-      message: "Can't add new user",
-      data: err,
-    });
+  } catch (err: any) {
+    if (err.code == 'P2002') {
+      res.status(200).json({
+        status: 'error',
+        message: 'Email was registered',
+        data: null,
+      });
+    } else {
+      res.status(500).json({
+        status: 'fatal',
+        message: "Can't add new user",
+        data: err,
+      });
+    }
   }
 }

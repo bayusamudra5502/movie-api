@@ -27,17 +27,25 @@ export default async function EditCategory(
         message: 'success',
         data: null,
       });
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      if (err.code === 'P2025') {
+        res.status(404).json({
+          status: 'error',
+          message: 'Record Not Found',
+          data: null,
+        });
+      } else {
+        console.error(err);
 
-      res.status(500).json({
-        status: 'fatal',
-        message: 'Internal Server Error',
-        data: err,
-      });
+        res.status(500).json({
+          status: 'fatal',
+          message: 'Internal Server Error',
+          data: err,
+        });
+      }
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

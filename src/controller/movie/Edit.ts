@@ -9,7 +9,7 @@ export default async function EditMovie(
   res: express.Response,
 ) {
   if (req.user) {
-    const { image, release, sinopsis, title, categoryId } = req.body;
+    const { image, release, synopsis, title, categoryId } = req.body;
     const { id } = req.params;
 
     try {
@@ -17,7 +17,7 @@ export default async function EditMovie(
         data: {
           image,
           release,
-          sinopsis,
+          synopsis,
           title,
           authorId: req.user.userId,
           categoryId,
@@ -32,17 +32,25 @@ export default async function EditMovie(
         message: 'success',
         data: null,
       });
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      if (err.code === 'P2025') {
+        res.status(404).json({
+          status: 'error',
+          message: 'Movie Not Found',
+          data: null,
+        });
+      } else {
+        console.error(err);
 
-      res.status(500).json({
-        status: 'fatal',
-        message: 'Internal Server Error',
-        data: err,
-      });
+        res.status(500).json({
+          status: 'fatal',
+          message: 'Internal Server Error',
+          data: err,
+        });
+      }
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

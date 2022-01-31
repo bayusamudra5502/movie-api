@@ -16,11 +16,19 @@ export default async function MovieDetail(
       },
     });
 
-    res.json({
-      status: 'success',
-      message: 'Success',
-      data,
-    });
+    if (data) {
+      res.json({
+        status: 'success',
+        message: 'Success',
+        data,
+      });
+    } else {
+      res.status(404).json({
+        status: 'error',
+        message: 'Movie Not Found',
+        data: null,
+      });
+    }
   } catch (err) {
     console.error(err);
 

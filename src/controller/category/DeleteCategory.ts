@@ -23,17 +23,25 @@ export default async function DeleteCategory(
         message: 'success',
         data: null,
       });
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      if (err.code) {
+        res.status(404).json({
+          status: 'error',
+          message: 'Record not found',
+          data: null,
+        });
+      } else {
+        console.error(err);
 
-      res.status(500).json({
-        status: 'fatal',
-        message: 'Internal Server Error',
-        data: err,
-      });
+        res.status(500).json({
+          status: 'fatal',
+          message: 'Internal Server Error',
+          data: err,
+        });
+      }
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

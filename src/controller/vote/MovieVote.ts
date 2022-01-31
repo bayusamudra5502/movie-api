@@ -17,13 +17,17 @@ export default async function MovieVote(
       _avg: {
         vote: true,
       },
+      _count: {
+        voteId: true,
+      },
     });
 
     res.json({
       status: 'success',
       message: 'Success',
       data: {
-        vote: data._avg,
+        vote: data._avg?.vote ?? 0,
+        count: data._count?.voteId ?? 0,
       },
     });
   } catch (err) {

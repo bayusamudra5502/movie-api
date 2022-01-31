@@ -7,8 +7,19 @@ const prisma = new PrismaClient();
 export default async function AddVote(req: AuthRequest, res: express.Response) {
   if (req.user) {
     try {
-      const { vote, movieId } = req.body;
+      const { id: movieId } = req.params;
+      const { vote } = req.body;
       const { userId } = req.user;
+
+      if (0 >= parseInt(vote) || parseInt(vote) > 5) {
+        res.status(400).json({
+          status: 'error',
+          message: 'Vote must be greater than 0 and lower or equal than 5',
+          data: null,
+        });
+
+        return;
+      }
 
       const data = await prisma.vote.findFirst({
         where: {
@@ -57,7 +68,7 @@ export default async function AddVote(req: AuthRequest, res: express.Response) {
       });
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

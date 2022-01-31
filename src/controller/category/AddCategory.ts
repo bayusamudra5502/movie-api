@@ -33,7 +33,7 @@ export default async function AddCategory(
       });
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,

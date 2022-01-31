@@ -9,16 +9,19 @@ export default async function Login(
   req: express.Request,
   res: express.Response,
 ) {
-  const { email, password }: { email: string; password: string } = req.body;
-  const userObject = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    const { email, password }: { email: string; password: string } = req.body;
+    const userObject = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  if (userObject) {
-    try {
-      const isValidPassword = await bcrypt.compare(password, email);
+    if (userObject) {
+      const isValidPassword = await bcrypt.compare(
+        password,
+        userObject.password,
+      );
       const token = encodeToken({
         userId: userObject.userId,
       });
@@ -32,23 +35,23 @@ export default async function Login(
           },
         });
       } else {
-        res.status(403).json({
+        res.status(401).json({
           status: 'error',
           message: 'Login Failed. Email and password combination not found.',
           data: null,
         });
       }
-    } catch (err) {
-      res.status(500).json({
-        status: 'fatal',
-        message: 'Server error',
+    } else {
+      res.status(401).json({
+        status: 'error',
+        message: 'Login Failed. User not found.',
         data: null,
       });
     }
-  } else {
-    res.status(403).json({
-      status: 'error',
-      message: 'Login Failed. User not found.',
+  } catch (err) {
+    res.status(500).json({
+      status: 'fatal',
+      message: 'Server error',
       data: null,
     });
   }

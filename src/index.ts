@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import Controller from './controller';
-import AuthMiddleware, { AuthRequest } from './middleware/Auth';
+import AuthMiddleware from './middleware/Auth';
 
 const app = express();
 const port = parseInt(process.env.PORT ?? '8080');

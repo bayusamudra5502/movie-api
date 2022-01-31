@@ -13,6 +13,16 @@ export default async function EditVote(
       const { id } = req.params;
       const { vote } = req.body;
 
+      if (0 >= parseInt(vote) || parseInt(vote) > 5) {
+        res.status(400).json({
+          status: 'error',
+          message: 'Vote must be greater than 0 and lower or equal than 5',
+          data: null,
+        });
+
+        return;
+      }
+
       const data = await prisma.vote.findFirst({
         where: {
           movieId: parseInt(id),
@@ -36,9 +46,9 @@ export default async function EditVote(
           data: null,
         });
       } else {
-        res.json({
-          status: 'success',
-          message: 'No changed',
+        res.status(404).json({
+          status: 'error',
+          message: 'No vote available',
           data: null,
         });
       }
@@ -46,7 +56,7 @@ export default async function EditVote(
       console.error(err);
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'error',
       message: 'Unauthorized User',
       data: null,
