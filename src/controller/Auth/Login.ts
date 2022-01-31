@@ -51,8 +51,8 @@ export default async function Login(
   } catch (err) {
     res.status(500).json({
       status: 'fatal',
-      message: 'Server error',
-      data: null,
+      message: 'Internal Server Error',
+      data: err,
     });
   }
 }

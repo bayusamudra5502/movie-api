@@ -8,8 +8,11 @@
     "start": "nodemon --exec \" npm run build:style && npm run start:prod\"",
     "start:prod": "npm run build:script && node ./dist/index.js",
     "build": "npm run build:script && npm run build:style",
-    "build:script": "tsc && cp -r ./src/templates ./dist/ & cp -r ./private ./dist",
-    "build:style": "tailwindcss -i ./public/style.css -o ./dist/static/style.css"
+    "build:script": "tsc",
+    "build:style": "tailwindcss -i ./public/style.css -o ./dist/static/style.css",
+    "migrate:prod": "prisma migrate deploy",
+    "migrate:dev": "prisma migrate dev",
+    "build:docker": ""
   },
   "keywords": [],
   "author": "",

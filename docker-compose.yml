@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   postgresql:
@@ -6,12 +6,13 @@ services:
     ports:
       - 5432:5432
     image: postgres:14
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     networks:
       - api_network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=000000
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USERNAME=root
   server:
     container_name: gdsc_movie_api
     build: .
@@ -21,8 +22,10 @@ services:
       - api_network
     depends_on:
       - postgresql
+    volumes:
+      - .:/source
     environment:
-      - DATABASE_URL="postgresql://postgres:000000@localhost:5432/movie_api"
+      - DATABASE_URL=postgresql://root:root@postgresql:5432/movie_api
       - PORT=8080
 
 networks:
@@ -31,4 +34,6 @@ networks:
 
 volumes:
   pgdata:
-    name: pgdata
+    name: gdsc_movie_api_pgdata
+  apidata:
+    name: gdsc_movie_api_data
