@@ -6,5 +6,6 @@ openssl rand -out ./dist/private/auth.key -base64 1024
 mkdir -p ./dist/templates
 cp ./src/templates/* ./dist/templates
 
-npm run build
+npm run build:style
+npm run build:script
 npm run migrate:prod
