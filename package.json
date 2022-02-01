@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.3.1",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.13",
@@ -31,7 +32,6 @@
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
-    "@tailwindcss/line-clamp": "^0.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/validator": "^13.7.1",
     "bcrypt": "^5.0.1",
