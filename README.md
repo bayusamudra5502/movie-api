@@ -73,3 +73,7 @@ postgresql://username:password@server:port/db_name
 - `PORT`: Port tempat server akan bekerja
 
 Anda juga dapat membuat file `.env` dengan contoh pada `.env.example`
+
+## Attribusi
+
+Citra ikon diatas diambil dari Flaticon.
