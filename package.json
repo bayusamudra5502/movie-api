@@ -10,7 +10,7 @@
     "start:prod": "npm run build:script && node ./dist/index.js",
     "build": "./build.sh",
     "build:script": "tsc",
-    "build:style": "tailwindcss -i ./public/style.css -o ./dist/static/style.css",
+    "build:style": "tailwindcss -i ./src/styles/style.css -o ./dist/static/style.css",
     "migrate:prod": "prisma migrate deploy",
     "migrate:dev": "prisma migrate dev"
   },
