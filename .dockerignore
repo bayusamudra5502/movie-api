@@ -2,3 +2,4 @@
 .env
 dist/
 private/
+node_modules/
