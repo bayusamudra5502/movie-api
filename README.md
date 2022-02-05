@@ -74,6 +74,15 @@ postgresql://username:password@server:port/db_name
 
 Anda juga dapat membuat file `.env` dengan contoh pada `.env.example`
 
-## Attribusi
+## Anggota Kelompok
+
+Tugas ini merupakan implementasi oleh kelompok 56:
+
+- Bayu Samudra - 284
+- Ahmad Nadil - 531
+- Komang Ryandhi Suandita - 316
+- Yohana Golkaria Nainggolan - 614
+
+## Atribusi
 
 Citra ikon diatas diambil dari Flaticon.
